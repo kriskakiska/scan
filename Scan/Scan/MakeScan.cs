@@ -18,6 +18,7 @@ namespace Scan
         public static int x;
         public static int y;
         public static int lengthAnswer;
+        public static int freeCellsCount = 0;
 
         public MakeScan()
         {
@@ -159,50 +160,6 @@ namespace Scan
             //dgv1_SelectionChanged(sender, e);
         }
 
-        public static void setDirection(int x, int y, int lengthAnswer)
-        {
-            if (x == 0)
-            {
-                if (y == 0)
-                {
-                    for (int i = 0; i < lengthAnswer; i++)
-                    {
-                        if (dgvScan.Rows[x].Cells[y+i].Value == null) // проверка свободных клеток вправо
-                        {
-                            for (int j = 0; j < lengthAnswer + 1; j++)
-                            {
-                                dgvScan.Rows[x].Cells[y + j].Style.BackColor = System.Drawing.Color.Aqua;
-                            }
-                        }
-
-                        if (dgvScan.Rows[x+1].Cells[y + i].Value == null) // проверка свободных клеток вниз вправо
-                        {
-                            for (int j = 0; j < lengthAnswer + 1; j++)
-                            {
-                                dgvScan.Rows[x+1].Cells[y + j].Style.BackColor = System.Drawing.Color.Aquamarine;
-                            }
-                        }
-
-                        if (dgvScan.Rows[x + i].Cells[y + 1].Value == null) // проверка свободных клеток вправо вниз
-                        {
-                            for (int j = 0; j < lengthAnswer + 1; j++)
-                            {
-                                dgvScan.Rows[x + i].Cells[y + 1].Style.BackColor = System.Drawing.Color.Blue;
-                            }
-                        }
-
-                        if (dgvScan.Rows[x + i + 1].Cells[y].Value == null) // проверка свободных клеток вниз
-                        {
-                            for (int j = 0; j < lengthAnswer + 1; j++)
-                            {
-                                dgvScan.Rows[x + i + 1].Cells[y].Style.BackColor = System.Drawing.Color.BlueViolet;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         /*private void toolStripButton11_Click(object sender, EventArgs e)
         {
             AddWord df = new AddWord();
@@ -324,220 +281,313 @@ namespace Scan
             player.Play();
         }
 
+        private void clearColorGrid() // функция очищения подсветки таблицы
+        {
+            for (int i = 0; i < dgvScan.RowCount; i++)
+            {
+                for (int j = 0; j < dgvScan.ColumnCount; j++)
+                {
+                    dgvScan.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.White;
+                }
+            }
+        }
+
+        private void hideDirectionTools() // функция скрытия инструментов добавления направления
+        {
+
+        }
+
         private void label3_Click(object sender, EventArgs e) // направление вправо
         {
-            if (y + lengthAnswer <= dgvScan.ColumnCount - 1)
+            clearColorGrid();
+            ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(3);
+
+            if (y != dgvScan.ColumnCount - 1)
             {
-                if (x == 0)
+                if (y + lengthAnswer + 1 <= dgvScan.ColumnCount)
                 {
-                    if (y == 0)
+                    for (int i = 0; i < lengthAnswer; i++)
                     {
-                        for (int i = 0; i < lengthAnswer; i++)
+                        if (dgvScan.Rows[x].Cells[y + i + 1].Value == null) // проверка нужного количества свободных клеток вниз вправо
                         {
-                            if (dgvScan.Rows[x].Cells[y + i].Value == null) // направление вправо
-                            {
-                                for (int j = 0; j < lengthAnswer + 1; j++)
-                                {
-                                    dgvScan.Rows[x].Cells[y + j].Style.BackColor = System.Drawing.Color.Aqua;
-                                }
-                            }
-                        }
-                    } else if (y != 0 && y != dgvScan.ColumnCount)
-                    {
-                        for (int i = 0; i < lengthAnswer; i++)
-                        {
-                            if (dgvScan.Rows[x].Cells[y + i].Value == null) // направление вправо
-                            {
-                                for (int j = 0; j < lengthAnswer + 1; j++)
-                                {
-                                    dgvScan.Rows[x].Cells[y + j].Style.BackColor = System.Drawing.Color.Aqua;
-                                }
-                            }
+                            freeCellsCount++;
                         }
                     }
-                } else
+                    if (freeCellsCount == lengthAnswer)
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x].Cells[y + i + 1].Style.BackColor = System.Drawing.Color.BlueViolet;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Данное направление недоступно для заданного слова");
+                    }
+                }
+                else
                 {
-                    if (y == 0)
-                    {
-                        for (int i = 0; i < lengthAnswer; i++)
-                        {
-                            if (dgvScan.Rows[x].Cells[y + i].Value == null) // направление вправо
-                            {
-                                for (int j = 0; j < lengthAnswer + 1; j++)
-                                {
-                                    dgvScan.Rows[x].Cells[y + j].Style.BackColor = System.Drawing.Color.Aqua;
-                                }
-                            }
-                        }
-                    }
-                    else if (y != 0 && y != dgvScan.ColumnCount)
-                    {
-                        for (int i = 0; i < lengthAnswer; i++)
-                        {
-                            if (dgvScan.Rows[x].Cells[y + i].Value == null) // направление вправо
-                            {
-                                for (int j = 0; j < lengthAnswer + 1; j++)
-                                {
-                                    dgvScan.Rows[x].Cells[y + j].Style.BackColor = System.Drawing.Color.Aqua;
-                                }
-                            }
-                        }
-                    }
+                    MessageBox.Show("Данное направление недоступно для заданного слова");
                 }
             }
             else
             {
                 MessageBox.Show("Данное направление недоступно для заданного слова");
             }
-                
+            freeCellsCount = 0;
         }
 
         private void label4_Click(object sender, EventArgs e) // направление вниз вправо
         {
-            if (x == 0)
+            clearColorGrid();
+            ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(4);
+
+            if (x != dgvScan.RowCount - 1)
             {
-                if (y == 0)
+                if (y + lengthAnswer <= dgvScan.ColumnCount)
                 {
                     for (int i = 0; i < lengthAnswer; i++)
                     {
-
-                        if (dgvScan.Rows[x + 1].Cells[y + i].Value == null) // проверка свободных клеток вниз вправо
+                        if (dgvScan.Rows[x + 1].Cells[y + i].Value == null) // проверка нужного количества свободных клеток вниз вправо
                         {
-                            for (int j = 0; j < lengthAnswer + 1; j++)
-                            {
-                                dgvScan.Rows[x + 1].Cells[y + j].Style.BackColor = System.Drawing.Color.Aquamarine;
-                            }
+                            freeCellsCount++;
                         }
                     }
-                }
-            }
-        }
-
-        private void label5_Click(object sender, EventArgs e) // направление вправо вниз
-        {
-            if (x == 0)
-            {
-                if (y == 0)
-                {
-                    for (int i = 0; i < lengthAnswer; i++)
-                    {
-                        if (dgvScan.Rows[x + i].Cells[y + 1].Value == null) // проверка свободных клеток вправо вниз
-                        {
-                            for (int j = 0; j < lengthAnswer + 1; j++)
-                            {
-                                dgvScan.Rows[x + i].Cells[y + 1].Style.BackColor = System.Drawing.Color.Blue;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void label6_Click(object sender, EventArgs e) // направление вниз
-        {
-            if (x + lengthAnswer <= dgvScan.RowCount - 1)
-            {
-                ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(6);
-                if (x == 0)
-                {
-                    if (y == 0)
+                    if (freeCellsCount == lengthAnswer)
                     {
                         for (int i = 0; i < lengthAnswer; i++)
                         {
-                            if (dgvScan.Rows[x + i + 1].Cells[y].Value == null) // проверка свободных клеток вниз
-                            {
-                                for (int j = 0; j < lengthAnswer + 1; j++)
-                                {
-                                    dgvScan.Rows[x + i + 1].Cells[y].Style.BackColor = System.Drawing.Color.BlueViolet;
-                                }
-                            }
+                            dgvScan.Rows[x + 1].Cells[y + i].Style.BackColor = System.Drawing.Color.BlueViolet;
                         }
                     }
                     else
                     {
-                        for (int i = 0; i < lengthAnswer; i++)
-                        {
-                            if (dgvScan.Rows[x + i + 1].Cells[y].Value == null) // проверка свободных клеток вниз
-                            {
-                                for (int j = 0; j < lengthAnswer + 1; j++)
-                                {
-                                    dgvScan.Rows[x + i + 1].Cells[y].Style.BackColor = System.Drawing.Color.BlueViolet;
-                                }
-                            }
-                        }
+                        MessageBox.Show("Данное направление недоступно для заданного слова");
                     }
                 }
-                else if (x != 0 && x != dgvScan.RowCount)
+                else
                 {
-                    if (y == 0)
-                    {
-
-                        for (int i = 0; i < lengthAnswer; i++)
-                        {
-                            if (dgvScan.Rows[x + i + 1].Cells[y].Value == null) // проверка свободных клеток вниз
-                            {
-                                for (int j = 0; j < lengthAnswer + 1; j++)
-                                {
-                                    dgvScan.Rows[x + i + 1].Cells[y].Style.BackColor = System.Drawing.Color.BlueViolet;
-                                }
-                            }
-                        }
-
-                    }
-                    else
-                    {
-                        for (int i = 0; i < lengthAnswer; i++)
-                        {
-                            if (dgvScan.Rows[x + i + 1].Cells[y].Value == null) // проверка свободных клеток вниз
-                            {
-                                for (int j = 0; j < lengthAnswer + 1; j++)
-                                {
-                                    dgvScan.Rows[x + i + 1].Cells[y].Style.BackColor = System.Drawing.Color.BlueViolet;
-                                }
-                            }
-                        }
-                    }
+                    MessageBox.Show("Данное направление недоступно для заданного слова");
                 }
             }
             else
             {
                 MessageBox.Show("Данное направление недоступно для заданного слова");
-            }            
+            }
+            freeCellsCount = 0;
+        }
+
+        private void label5_Click(object sender, EventArgs e) // направление вправо вниз
+        {
+            clearColorGrid();
+            ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(5);
+
+            if (y != dgvScan.ColumnCount - 1)
+            {
+                if (x + lengthAnswer <= dgvScan.RowCount)
+                {
+                    for (int i = 0; i < lengthAnswer; i++)
+                    {
+                        if (dgvScan.Rows[x + i].Cells[y + 1].Value == null) // проверка нужного количетсва свободных клеток вправо вниз
+                        {
+                            freeCellsCount++;
+                        }
+                    }
+                    if (freeCellsCount == lengthAnswer)
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x + i].Cells[y + 1].Style.BackColor = System.Drawing.Color.Blue;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Данное направление недоступно для заданного слова");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Данное направление недоступно для заданного слова");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Данное направление недоступно для заданного слова");
+            }
+            freeCellsCount = 0;
+        }
+
+        private void label6_Click(object sender, EventArgs e) // направление вниз
+        {
+            clearColorGrid();
+            ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(6);
+
+            if (x != dgvScan.RowCount - 1)
+            {
+                if (x + lengthAnswer <= dgvScan.RowCount)
+                {
+                    for (int i = 0; i < lengthAnswer; i++)
+                    {
+                        if (dgvScan.Rows[x + i + 1].Cells[y].Value == null) // проверка нужного количества свободных клеток вниз
+                        {
+                            freeCellsCount++;
+                        }
+                    }
+
+                    if (freeCellsCount == lengthAnswer)
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x + i + 1].Cells[y].Style.BackColor = System.Drawing.Color.BlueViolet;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Данное направление недоступно для заданного слова");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Данное направление недоступно для заданного слова");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Данное направление недоступно для заданного слова");
+            }
+            freeCellsCount = 0;
         }
 
         private void label7_Click(object sender, EventArgs e) // направление вверх вправо
         {
+            clearColorGrid();
+            ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(7);
+
             if (x != 0)
             {
-                if (y == 0)
+                if (y + lengthAnswer <= dgvScan.ColumnCount)
                 {
                     for (int i = 0; i < lengthAnswer; i++)
                     {
-                        if (dgvScan.Rows[x - 1].Cells[y + i].Value == null) // проверка свободных вверх вправо
+                        if (dgvScan.Rows[x - 1].Cells[y + i].Value == null) // проверка нужного количества свободных клеток вверх вправо
                         {
-                            for (int j = 0; j < lengthAnswer + 1; j++)
-                            {
-                                dgvScan.Rows[x - 1].Cells[y + i].Style.BackColor = System.Drawing.Color.BlueViolet;
-                            }
+                            freeCellsCount++;
                         }
                     }
+                    if (freeCellsCount == lengthAnswer)
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x - 1].Cells[y + i].Style.BackColor = System.Drawing.Color.BlueViolet;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Данное направление недоступно для заданного слова");
+                    }
                 }
-            } 
+                else
+                {
+                    MessageBox.Show("Данное направление недоступно для заданного слова");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Данное направление недоступно для заданного слова");
+            }
+            freeCellsCount = 0;
         }
 
         private void label8_Click(object sender, EventArgs e) // направление влево вниз
         {
+            clearColorGrid();
+            ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(8);
 
+            if (y != 0)
+            {
+                if (x + lengthAnswer <= dgvScan.RowCount)
+                {
+                    for (int i = 0; i < lengthAnswer; i++)
+                    {
+                        if (dgvScan.Rows[x + i].Cells[y - 1].Value == null) // проверка нужного количетсва свободных клеток влево вниз
+                        {
+                            freeCellsCount++;
+                        }
+                    }
+                    if (freeCellsCount == lengthAnswer)
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x + i].Cells[y - 1].Style.BackColor = System.Drawing.Color.Blue;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Данное направление недоступно для заданного слова");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Данное направление недоступно для заданного слова");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Данное направление недоступно для заданного слова");
+            }
+            freeCellsCount = 0;
         }
 
         private void Ок_Click(object sender, EventArgs e) 
         {
+            clearColorGrid();
             Task addedTask = ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value));
+
+            if (addedTask.getDirection() == 3) // если напрваление вправо
+            {
+                for (int i = 0; i < lengthAnswer; i++)
+                {
+                    dgvScan.Rows[x].Cells[y + i + 1].Value = addedTask.getAnswer()[i];
+                }
+            }
+
+            if (addedTask.getDirection() == 4) // если напрваление вниз вправо
+            {
+                for (int i = 0; i < lengthAnswer; i++)
+                {
+                    dgvScan.Rows[x + 1].Cells[y + i].Value = addedTask.getAnswer()[i];
+                }
+            }
+
+            if (addedTask.getDirection() == 5) // если напрваление вправо вниз
+            {
+                for (int i = 0; i < lengthAnswer; i++)
+                {
+                    dgvScan.Rows[x + i].Cells[y + 1].Value = addedTask.getAnswer()[i];
+                }
+            }
+
             if (addedTask.getDirection() == 6) // если напрваление вниз 
             {
                 for (int i = 0; i < lengthAnswer; i++)
                 {
                     dgvScan.Rows[x + i + 1].Cells[y].Value = addedTask.getAnswer()[i];
+                }
+            }
+
+            if (addedTask.getDirection() == 7) // если напрваление вверх право
+            {
+                for (int i = 0; i < lengthAnswer; i++)
+                {
+                    dgvScan.Rows[x - 1].Cells[y + i].Value = addedTask.getAnswer()[i];
+                }
+            }
+
+            if (addedTask.getDirection() == 8) // если напрваление влево вниз 
+            {
+                for (int i = 0; i < lengthAnswer; i++)
+                {
+                    dgvScan.Rows[x + i].Cells[y - 1].Value = addedTask.getAnswer()[i];
                 }
             }
         }
