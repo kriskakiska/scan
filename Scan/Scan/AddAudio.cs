@@ -11,9 +11,11 @@ using System.Windows.Forms;
 namespace Scan
 {
     public partial class AddAudio : Form
+      
     {
         public AddAudio()
         {
+            int example = 0;
             InitializeComponent();
         }
 
@@ -26,6 +28,11 @@ namespace Scan
                 MessageBox.Show(sr.ReadToEnd());
                 sr.Close();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
