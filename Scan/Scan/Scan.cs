@@ -36,7 +36,7 @@ namespace Scan
         public Task getTask(int ident)
         {
             Task result = null;
-            for (int i=0; i< tasks.Count; i++)
+            for (int i = 0; i < tasks.Count; i++)
             {
                 if (tasks[i].getID() == ident)
                 {
@@ -44,6 +44,17 @@ namespace Scan
                 }
             }
             return result;
+        }
+
+        public void deleteTask(int ident)
+        {
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                if (tasks[i].getID() == ident)
+                {
+                    tasks.Remove(tasks[i]);
+                }
+            }
         }
 
         public int getHeight()

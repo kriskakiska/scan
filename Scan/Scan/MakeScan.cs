@@ -155,6 +155,7 @@ namespace Scan
             clickGridCell = true;
             selectedCell = (DataGridViewTextBoxCell) dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
             selectedCell.Value = ParamScan.NewScan.getTasks().Count + 1;
+            selectedCell.Style.ForeColor = System.Drawing.Color.Black;
             x = selectedCell.RowIndex;
             y = selectedCell.ColumnIndex;
             //dgv1_SelectionChanged(sender, e);
@@ -590,6 +591,13 @@ namespace Scan
                     dgvScan.Rows[x + i].Cells[y - 1].Value = addedTask.getAnswer()[i];
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            clearColorGrid();
+            ParamScan.NewScan.deleteTask(Convert.ToInt32(selectedCell.Value));
+            selectedCell.Value = null;
         }
     }
 }
