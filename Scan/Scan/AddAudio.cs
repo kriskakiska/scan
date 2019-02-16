@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+//ya ebal menya sosali
 namespace Scan
 {
     public partial class AddAudio : Form

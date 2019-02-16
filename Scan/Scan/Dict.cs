@@ -74,7 +74,7 @@ namespace Scan
         }
 
 
-        public void dgv1_SelectionChanged(object sender, EventArgs e) // кнопка "ок" при выборе слова для добавления в словаре
+        public void dgv1_SelectionChanged(object sender, EventArgs e) // функция добавления задания в выбранную клетку
         {
             if (dgv1.SelectedCells.Count > 0)
             {
@@ -85,8 +85,6 @@ namespace Scan
                 Task newTask = new Task(idTask, Convert.ToString(selectedRow.Cells[0].Value), Convert.ToString(selectedRow.Cells[1].Value), MakeScan.x, MakeScan.y);
                 ParamScan.NewScan.addTask(newTask);
                 MakeScan.lengthAnswer = newTask.getAnswer().Length;
-                // MakeScan.setDirection(newTask.getX(), newTask.getY(), newTask.getAnswer().Length);
-                // label1.Text = newTask.getAnswer(); // ?
             }            
         }
         
@@ -100,12 +98,10 @@ namespace Scan
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // кнопка "ок" при выборе слова для добавления в словаре
         {
-            //string test = dgv1.SelectedRows.
             dgv1_SelectionChanged(sender,e);
             this.Hide();
-            //  this.Hide();
             Dict.dgv1.Rows.Clear();
             Dict.dgv1.Refresh();
             Dict.dict1.Clear();
