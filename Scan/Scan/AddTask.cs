@@ -30,10 +30,8 @@ namespace Scan
             else if (str == "Слово")
             {
                 Dict d = new Dict();
-                this.Hide();
-                this.Close();
                 d.ShowDialog();
-                this.Show();
+                this.Close();
             }
             else
             {

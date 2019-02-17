@@ -20,7 +20,7 @@ namespace Scan
             id = ident;
             answer = selectAnswer;
             question = selectQuestion;
-            //direction = selectDirection;
+            direction = 0;
             x = i;
             y = j;
         }

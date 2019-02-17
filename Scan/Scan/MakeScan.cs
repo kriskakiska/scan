@@ -17,6 +17,7 @@ namespace Scan
         public static DataGridViewTextBoxCell selectedCell;
         public static DataGridView dgvScan = new DataGridView();
         public static bool clickGridCell = false;
+        public static bool selectCell = false;
         public static int x;
         public static int y;
         public static int lengthAnswer;
@@ -69,9 +70,8 @@ namespace Scan
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
             ParamScan df = new ParamScan();
-            this.Hide();
             df.ShowDialog();
-            this.Show();
+            this.Close();
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -84,10 +84,28 @@ namespace Scan
 
         private void toolStripButton3_Click(object sender, EventArgs e) //кнопка сохранения сканворда
         {
-            SaveScan df = new SaveScan();
-            this.Hide();
-            df.ShowDialog();
-            this.Show();
+            bool result = true;
+            for (int i = 0; i < dgvScan.RowCount; i++)
+            {
+                for (int j = 0; j < dgvScan.ColumnCount; j++)
+                {
+                    if (dgvScan.Rows[i].Cells[j].Value == null)
+                    {
+                        result = false;
+                    }
+                }
+            }
+            if (result == false)
+            {
+                MessageBox.Show("Поле сканворда не должно содержать пустых ячеек. Пожалуйста, внесите исправления.");
+            }
+            else
+            {
+                SaveScan df = new SaveScan();
+                this.Hide();
+                df.ShowDialog();
+                this.Show();
+            }
         }
 
         private void toolStripButton9_Click(object sender, EventArgs e) // загрузка словаря
@@ -156,6 +174,18 @@ namespace Scan
         {
             clickGridCell = true;
             selectedCell = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+            for (int i = 0; i < dgvScan.RowCount; i++)
+            {
+                for (int j = 0; j < dgvScan.ColumnCount; j++)
+                {
+                    if (ParamScan.NewScan.getTasks().Count != 0 && dgvScan.Rows[i].Cells[j].Value != null && dgvScan.Rows[i].Cells[j].Value.GetType() == typeof(int) && ParamScan.NewScan.getTasks().Count < Convert.ToInt32(dgvScan.Rows[i].Cells[j].Value))
+                    {
+                        dgvScan.Rows[i].Cells[j].Value = null;
+                    }
+                }
+            }
+            
             if (selectedCell.Value == null)
             {
                 selectedCell.Value = ParamScan.NewScan.getTasks().Count + 1;
@@ -230,10 +260,10 @@ namespace Scan
 
         private void toolStripButton5_Click(object sender, EventArgs e) // значок добавления задания на поле
         {
+            showDirectionTools();
             if (clickGridCell)
             {
                 AddTask df = new AddTask();
-                //this.Hide();
                 df.ShowDialog();
                 this.Show();
                 clickGridCell = false;
@@ -288,16 +318,6 @@ namespace Scan
             this.Show();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void toolStripButton8_Click(object sender, EventArgs e) // кнопка создания нового словаря
         {
             dgv.Visible = true;
@@ -331,18 +351,43 @@ namespace Scan
             {
                 for (int j = 0; j < dgvScan.ColumnCount; j++)
                 {
-                    dgvScan.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.White;
+                    if (dgvScan.Rows[i].Cells[j].Style.BackColor != System.Drawing.Color.White && dgvScan.Rows[i].Cells[j].Value == null)
+                    {
+                        dgvScan.Rows[i].Cells[j].Style.BackColor = System.Drawing.Color.White;
+                    }
                 }
             }
         }
 
+        private void showDirectionTools() // функция показа инструментов добавления направления
+        {
+            label3.Visible = true;
+            label4.Visible = true;
+            label5.Visible = true;
+            label6.Visible = true;
+            label7.Visible = true;
+            label8.Visible = true;
+            label9.Visible = true;
+            Ок.Visible = true;
+            button1.Visible = true;
+        }
+
         private void hideDirectionTools() // функция скрытия инструментов добавления направления
         {
-
+            label3.Visible = false;
+            label4.Visible = false;
+            label5.Visible = false;
+            label6.Visible = false;
+            label7.Visible = false;
+            label8.Visible = false;
+            label9.Visible = false;
+            Ок.Visible = false;
+            button1.Visible = false;
         }
 
         private void label3_Click(object sender, EventArgs e) // направление вправо
         {
+            Ок.Enabled = true;
             clearColorGrid();
             ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(3);
 
@@ -361,28 +406,32 @@ namespace Scan
                     {
                         for (int i = 0; i < lengthAnswer; i++)
                         {
-                            dgvScan.Rows[x].Cells[y + i + 1].Style.BackColor = System.Drawing.Color.BlueViolet;
+                            dgvScan.Rows[x].Cells[y + i + 1].Style.BackColor = System.Drawing.Color.Orange;
                         }
                     }
                     else
                     {
                         MessageBox.Show("Данное направление недоступно для заданного слова");
+                        Ок.Enabled = false;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Данное направление недоступно для заданного слова");
+                    Ок.Enabled = false;
                 }
             }
             else
             {
                 MessageBox.Show("Данное направление недоступно для заданного слова");
+                Ок.Enabled = false;
             }
             freeCellsCount = 0;
         }
 
         private void label4_Click(object sender, EventArgs e) // направление вниз вправо
         {
+            Ок.Enabled = true;
             clearColorGrid();
             ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(4);
 
@@ -401,28 +450,32 @@ namespace Scan
                     {
                         for (int i = 0; i < lengthAnswer; i++)
                         {
-                            dgvScan.Rows[x + 1].Cells[y + i].Style.BackColor = System.Drawing.Color.BlueViolet;
+                            dgvScan.Rows[x + 1].Cells[y + i].Style.BackColor = System.Drawing.Color.Gold;
                         }
                     }
                     else
                     {
                         MessageBox.Show("Данное направление недоступно для заданного слова");
+                        Ок.Enabled = false;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Данное направление недоступно для заданного слова");
+                    Ок.Enabled = false;
                 }
             }
             else
             {
                 MessageBox.Show("Данное направление недоступно для заданного слова");
+                Ок.Enabled = false;
             }
             freeCellsCount = 0;
         }
 
         private void label5_Click(object sender, EventArgs e) // направление вправо вниз
         {
+            Ок.Enabled = true;
             clearColorGrid();
             ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(5);
 
@@ -441,28 +494,32 @@ namespace Scan
                     {
                         for (int i = 0; i < lengthAnswer; i++)
                         {
-                            dgvScan.Rows[x + i].Cells[y + 1].Style.BackColor = System.Drawing.Color.Blue;
+                            dgvScan.Rows[x + i].Cells[y + 1].Style.BackColor = System.Drawing.Color.Red;
                         }
                     }
                     else
                     {
                         MessageBox.Show("Данное направление недоступно для заданного слова");
+                        Ок.Enabled = false;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Данное направление недоступно для заданного слова");
+                    Ок.Enabled = false;
                 }
             }
             else
             {
                 MessageBox.Show("Данное направление недоступно для заданного слова");
+                Ок.Enabled = false;
             }
             freeCellsCount = 0;
         }
 
         private void label6_Click(object sender, EventArgs e) // направление вниз
         {
+            Ок.Enabled = true;
             clearColorGrid();
             ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(6);
 
@@ -482,28 +539,32 @@ namespace Scan
                     {
                         for (int i = 0; i < lengthAnswer; i++)
                         {
-                            dgvScan.Rows[x + i + 1].Cells[y].Style.BackColor = System.Drawing.Color.BlueViolet;
+                            dgvScan.Rows[x + i + 1].Cells[y].Style.BackColor = System.Drawing.Color.Coral;
                         }
                     }
                     else
                     {
                         MessageBox.Show("Данное направление недоступно для заданного слова");
+                        Ок.Enabled = false;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Данное направление недоступно для заданного слова");
+                    Ок.Enabled = false;
                 }
             }
             else
             {
                 MessageBox.Show("Данное направление недоступно для заданного слова");
+                Ок.Enabled = false;
             }
             freeCellsCount = 0;
         }
 
         private void label7_Click(object sender, EventArgs e) // направление вверх вправо
         {
+            Ок.Enabled = true;
             clearColorGrid();
             ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(7);
 
@@ -528,22 +589,26 @@ namespace Scan
                     else
                     {
                         MessageBox.Show("Данное направление недоступно для заданного слова");
+                        Ок.Enabled = false;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Данное направление недоступно для заданного слова");
+                    Ок.Enabled = false;
                 }
             }
             else
             {
                 MessageBox.Show("Данное направление недоступно для заданного слова");
+                Ок.Enabled = false;
             }
             freeCellsCount = 0;
         }
 
         private void label8_Click(object sender, EventArgs e) // направление влево вниз
         {
+            Ок.Enabled = true;
             clearColorGrid();
             ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value)).setDirection(8);
 
@@ -568,23 +633,26 @@ namespace Scan
                     else
                     {
                         MessageBox.Show("Данное направление недоступно для заданного слова");
+                        Ок.Enabled = false;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Данное направление недоступно для заданного слова");
+                    Ок.Enabled = false;
                 }
             }
             else
             {
                 MessageBox.Show("Данное направление недоступно для заданного слова");
+                Ок.Enabled = false;
             }
             freeCellsCount = 0;
         }
 
         private void Ок_Click(object sender, EventArgs e) 
         {
-            clearColorGrid();
+            selectCell = true;
             Task addedTask = ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value));
 
             if (addedTask.getDirection() == 3) // если напрваление вправо
@@ -634,18 +702,26 @@ namespace Scan
                     dgvScan.Rows[x + i].Cells[y - 1].Value = addedTask.getAnswer()[i];
                 }
             }
+            hideDirectionTools();
+            Ок.Enabled = false;
         }
 
         private void button1_Click(object sender, EventArgs e) // кнопка отметы добавления задания на поле
         {
+            selectCell = true;
             clearColorGrid();
+            hideDirectionTools();
             ParamScan.NewScan.deleteTask(Convert.ToInt32(selectedCell.Value));
             selectedCell.Value = null;
+            Ок.Enabled = false;
         }
+<<<<<<< HEAD
 
         private void toolStripButton15_Click(object sender, EventArgs e)
         {
             listView1.Visible = true;
         }
+=======
+>>>>>>> 6b8cb6deb0c6f2049c3437ff118b50e95bba5405
     }
 }
