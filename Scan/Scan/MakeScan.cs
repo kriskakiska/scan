@@ -12,6 +12,8 @@ namespace Scan
         public static DataGridView dgv = new DataGridView();
         public static Dictionary<string, string> dict = new Dictionary<string, string>();
         public static List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
+        public static Dictionary<string, string> dictGal = new Dictionary<string, string>();
+        public static List<KeyValuePair<string, string>> listGal = new List<KeyValuePair<string, string>>();
         public static DataGridViewTextBoxCell selectedCell;
         public static DataGridView dgvScan = new DataGridView();
         public static bool clickGridCell = false;
@@ -20,11 +22,15 @@ namespace Scan
         public static int y;
         public static int lengthAnswer;
         public static int freeCellsCount = 0;
+<<<<<<< HEAD
         public static bool selectedTaskToDelete = false;
 
+=======
+>>>>>>> 17773ac769963ecb650768ba1533009eccdfa254
         public MakeScan()
         {
             InitializeComponent();
+            //MakeScan msk = new MakeScan();
             initDataGrid();
             dataGridView1.CellClick += new DataGridViewCellEventHandler(dataGridView1_CellClick);
             dgvScan = dataGridView1;
@@ -288,13 +294,34 @@ namespace Scan
             this.Show();
         }
 
-        private void toolStripButton17_Click(object sender, EventArgs e)
+        private void toolStripButton17_Click(object sender, EventArgs e)//сохранения галереи
         {
-            SaveGal df = new SaveGal();
-            this.Hide();
-            df.ShowDialog();
-            this.Show();
+            saveFileDialog2.DefaultExt = ".pic";
+            saveFileDialog2.InitialDirectory = @"..\..\Gallery\";
+            saveFileDialog2.AddExtension = true;
+            saveFileDialog2.FileName = "Gallery";
+            saveFileDialog2.Filter = "Файл галереи (*.pic)|*.pic";
+            try
+            {
+                if (saveFileDialog2.ShowDialog() == DialogResult.OK)
+                {
+                    string s = "";
+                    foreach (var item in AddPicture.listGal2)
+                    {
+                        string def = item.Value;
+                        s += item.Key.ToUpper() + " " + def + "\n";
+                    }
+
+                    using (StreamWriter sw = new StreamWriter(saveFileDialog2.FileName, false, System.Text.Encoding.Default))
+                    {
+                        sw.WriteLine(s);
+                    }
+                    MessageBox.Show("Галерея успешно создана");
+                }
+            }
+            catch (Exception) { MessageBox.Show("Выйдите из режима редактирования"); }
         }
+    
 
         private void toolStripButton18_Click(object sender, EventArgs e)
         {
@@ -787,5 +814,13 @@ namespace Scan
             selectedCell.Value = null;
             Ок.Enabled = false;
         }
+<<<<<<< HEAD
+
+        private void toolStripButton15_Click(object sender, EventArgs e)
+        {
+            listView1.Visible = true;
+        }
+=======
+>>>>>>> 6b8cb6deb0c6f2049c3437ff118b50e95bba5405
     }
 }
