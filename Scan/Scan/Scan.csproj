@@ -77,6 +77,8 @@
     <Compile Include="Catalog.Designer.cs">
       <DependentUpon>Catalog.cs</DependentUpon>
     </Compile>
+    <Compile Include="DBase.cs" />
+    <Compile Include="DBServer.cs" />
     <Compile Include="Dict.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -130,11 +132,6 @@
     </Compile>
     <Compile Include="ParamScan.Designer.cs">
       <DependentUpon>ParamScan.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PicturesDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PicturesDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -263,17 +260,6 @@
     <EmbeddedResource Include="Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="PicturesDataSet.xsc">
-      <DependentUpon>PicturesDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="PicturesDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>PicturesDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="PicturesDataSet.xss">
-      <DependentUpon>PicturesDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\DataSources\ParamScan.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
