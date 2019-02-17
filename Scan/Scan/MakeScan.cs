@@ -20,6 +20,7 @@ namespace Scan
         public static int y;
         public static int lengthAnswer;
         public static int freeCellsCount = 0;
+        public static bool selectedTaskToDelete = false;
 
         public MakeScan()
         {
@@ -169,31 +170,104 @@ namespace Scan
         }
 
         public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) // обратчик нажатия ячейки поля
-        {
-            clickGridCell = true;
-            selectedCell = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-            for (int i = 0; i < dgvScan.RowCount; i++)
+        { 
+            if (selectedTaskToDelete == true)
             {
-                for (int j = 0; j < dgvScan.ColumnCount; j++)
+                selectedCell = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (selectedCell.Value != null && selectedCell.Value.GetType() == typeof(int))
                 {
-                    if (ParamScan.NewScan.getTasks().Count != 0 && dgvScan.Rows[i].Cells[j].Value != null && dgvScan.Rows[i].Cells[j].Value.GetType() == typeof(int) && ParamScan.NewScan.getTasks().Count < Convert.ToInt32(dgvScan.Rows[i].Cells[j].Value))
+                    Task deletedTask = ParamScan.NewScan.getTask(Convert.ToInt32(selectedCell.Value));
+
+                    if (deletedTask.getDirection() == 0)
                     {
-                        dgvScan.Rows[i].Cells[j].Value = null;
+                        selectedCell.Value = null;
                     }
+
+                    if (deletedTask.getDirection() == 3) // если напрваление вправо
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x].Cells[y + i + 1].Value = null;
+                        }
+                    }
+
+                    if (deletedTask.getDirection() == 4) // если напрваление вниз вправо
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x + 1].Cells[y + i].Value = null;
+                        }
+                    }
+
+                    if (deletedTask.getDirection() == 5) // если напрваление вправо вниз
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x + i].Cells[y + 1].Value = null;
+                        }
+                    }
+
+                    if (deletedTask.getDirection() == 6) // если напрваление вниз 
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x + i + 1].Cells[y].Value = null;
+                        }
+                    }
+
+                    if (deletedTask.getDirection() == 7) // если напрваление вверх право
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x - 1].Cells[y + i].Value = null;
+                        }
+                    }
+
+                    if (deletedTask.getDirection() == 8) // если напрваление влево вниз 
+                    {
+                        for (int i = 0; i < lengthAnswer; i++)
+                        {
+                            dgvScan.Rows[x + i].Cells[y - 1].Value = null;
+                        }
+                    }
+                    clearColorGrid();
+                    ParamScan.NewScan.deleteTask(Convert.ToInt32(selectedCell.Value));                    
+                    selectedCell.Value = null;
+                    selectedTaskToDelete = false;
                 }
-            }
-            
-            if (selectedCell.Value == null)
-            {
-                selectedCell.Value = ParamScan.NewScan.getTasks().Count + 1;
-                selectedCell.Style.ForeColor = System.Drawing.Color.Black;
-                x = selectedCell.RowIndex;
-                y = selectedCell.ColumnIndex;
+                else
+                {
+                    MessageBox.Show("Нажмите на ячейку c номером задания, которое вы хотели бы удалить.");
+                }
+
             }
             else
             {
-                MessageBox.Show("Выбранная ячейка занята");
+                clickGridCell = true;
+                selectedCell = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                for (int i = 0; i < dgvScan.RowCount; i++)
+                {
+                    for (int j = 0; j < dgvScan.ColumnCount; j++)
+                    {
+                        if (ParamScan.NewScan.getTasks().Count != 0 && dgvScan.Rows[i].Cells[j].Value != null && dgvScan.Rows[i].Cells[j].Value.GetType() == typeof(int) && ParamScan.NewScan.getTasks().Count < Convert.ToInt32(dgvScan.Rows[i].Cells[j].Value))
+                        {
+                            dgvScan.Rows[i].Cells[j].Value = null;
+                        }
+                    }
+                }
+
+                if (selectedCell.Value == null)
+                {
+                    selectedCell.Value = ParamScan.NewScan.getTasks().Count + 1;
+                    selectedCell.Style.ForeColor = System.Drawing.Color.Black;
+                    x = selectedCell.RowIndex;
+                    y = selectedCell.ColumnIndex;
+                }
+                else
+                {
+                    MessageBox.Show("Выбранная ячейка занята");
+                }
             }
             //dgv1_SelectionChanged(sender, e);
         }
@@ -246,21 +320,42 @@ namespace Scan
                 clickGridCell = false;
             } else
             {
-                MessageBox.Show("Нажмите на ячейку, в которую хотели бы поместить задание");
+                MessageBox.Show("Нажмите на ячейку, в которую хотели бы поместить задание.");
             }
         }
 
         private void toolStripButton6_Click(object sender, EventArgs e) // значок удаления задание с поля
         {
-            if (clickGridCell)
+            int result = 0;
+            for (int i = 0; i < dgvScan.RowCount; i++)
             {
-                ParamScan.NewScan.deleteTask(Convert.ToInt32(selectedCell.Value));
-                selectedCell.Value = null;
+                for (int j = 0; j < dgvScan.ColumnCount; j++)
+                {
+                    if (dgvScan.Rows[i].Cells[j].Value == null)
+                    {
+                        result++;
+                    }
+                }
+            }
+            if (result == dgvScan.RowCount * dgvScan.ColumnCount)
+            {
+                MessageBox.Show("Поле не содержит ячеек доступных для удаления.");
             }
             else
             {
-                MessageBox.Show("Нажмите на ячейку с номером задания, которое вы хотели бы удалить");
+                selectedTaskToDelete = true;
+                MessageBox.Show("Нажмите на ячейку с номером задания, которое вы хотели бы удалить.");
             }
+
+            //if (clickGridCell)
+            //{
+            //    ParamScan.NewScan.deleteTask(Convert.ToInt32(selectedCell.Value));
+            //    selectedCell.Value = null;
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Нажмите на ячейку с номером задания, которое вы хотели бы удалить");
+            //}
         }
 
         private void toolStripButton21_Click(object sender, EventArgs e)

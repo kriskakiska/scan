@@ -13,7 +13,6 @@ namespace Scan
         private int height;
         private int width;
         private Dict currentDict;
-        // zhopa
 
         public Scan(List<Task> currentTasks, int h, int w) // , Dict dictionary)
         {
