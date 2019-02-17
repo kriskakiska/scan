@@ -15,7 +15,6 @@ namespace Scan
     {
         public AddAudio()
         {
-            int example = 0;
             InitializeComponent();
         }
 
