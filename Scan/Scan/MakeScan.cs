@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using System.Windows.Media;
-using System.Data.SqlClient;
-using System.Data.Common;
 
 namespace Scan
 {
