@@ -153,11 +153,18 @@ namespace Scan
         public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) // обратчик нажатия ячейки поля
         {
             clickGridCell = true;
-            selectedCell = (DataGridViewTextBoxCell) dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            selectedCell.Value = ParamScan.NewScan.getTasks().Count + 1;
-            selectedCell.Style.ForeColor = System.Drawing.Color.Black;
-            x = selectedCell.RowIndex;
-            y = selectedCell.ColumnIndex;
+            selectedCell = (DataGridViewTextBoxCell)dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            if (selectedCell.Value == null)
+            {
+                selectedCell.Value = ParamScan.NewScan.getTasks().Count + 1;
+                selectedCell.Style.ForeColor = System.Drawing.Color.Black;
+                x = selectedCell.RowIndex;
+                y = selectedCell.ColumnIndex;
+            }
+            else
+            {
+                MessageBox.Show("Выбранная ячейка занята");
+            }
             //dgv1_SelectionChanged(sender, e);
         }
 
@@ -198,7 +205,7 @@ namespace Scan
 
         }
 
-        private void toolStripButton5_Click(object sender, EventArgs e)
+        private void toolStripButton5_Click(object sender, EventArgs e) // значок добавления задания на поле
         {
             if (clickGridCell)
             {
@@ -210,6 +217,19 @@ namespace Scan
             } else
             {
                 MessageBox.Show("Нажмите на ячейку, в которую хотели бы поместить задание");
+            }
+        }
+
+        private void toolStripButton6_Click(object sender, EventArgs e) // значок удаления задание с поля
+        {
+            if (clickGridCell)
+            {
+                ParamScan.NewScan.deleteTask(Convert.ToInt32(selectedCell.Value));
+                selectedCell.Value = null;
+            }
+            else
+            {
+                MessageBox.Show("Нажмите на ячейку с номером задания, которое вы хотели бы удалить");
             }
         }
 
@@ -593,11 +613,12 @@ namespace Scan
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // кнопка отметы добавления задания на поле
         {
             clearColorGrid();
             ParamScan.NewScan.deleteTask(Convert.ToInt32(selectedCell.Value));
             selectedCell.Value = null;
         }
+        
     }
 }

@@ -85,7 +85,7 @@ namespace Scan
                 Task newTask = new Task(idTask, Convert.ToString(selectedRow.Cells[0].Value), Convert.ToString(selectedRow.Cells[1].Value), MakeScan.x, MakeScan.y);
                 ParamScan.NewScan.addTask(newTask);
                 MakeScan.lengthAnswer = newTask.getAnswer().Length;
-            }            
+            }
         }
         
         private void toolStripButton1_Click(object sender, EventArgs e)
