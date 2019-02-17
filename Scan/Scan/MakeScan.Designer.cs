@@ -146,6 +146,7 @@
             // 
             // Ок
             // 
+            this.Ок.Enabled = false;
             this.Ок.ForeColor = System.Drawing.SystemColors.MenuText;
             this.Ок.Location = new System.Drawing.Point(631, 159);
             this.Ок.Name = "Ок";
