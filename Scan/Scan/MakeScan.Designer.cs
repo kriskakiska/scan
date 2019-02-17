@@ -80,6 +80,7 @@
             this.toolStripButton25 = new System.Windows.Forms.ToolStripButton();
             this.paramScanBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.label9 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -108,6 +109,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.AutoScroll = true;
+            this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.Ок);
             this.tabPage1.Controls.Add(this.label8);
@@ -132,90 +135,104 @@
             // button1
             // 
             this.button1.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.button1.Location = new System.Drawing.Point(25, 258);
+            this.button1.Location = new System.Drawing.Point(687, 159);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 25);
+            this.button1.Size = new System.Drawing.Size(95, 27);
             this.button1.TabIndex = 9;
             this.button1.Text = "Отмена";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Ок
             // 
             this.Ок.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.Ок.Location = new System.Drawing.Point(25, 227);
+            this.Ок.Location = new System.Drawing.Point(631, 159);
             this.Ок.Name = "Ок";
-            this.Ок.Size = new System.Drawing.Size(75, 24);
+            this.Ок.Size = new System.Drawing.Size(47, 27);
             this.Ок.TabIndex = 8;
             this.Ок.Text = "Ок";
             this.Ок.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.Ок.UseVisualStyleBackColor = true;
+            this.Ок.Visible = false;
             this.Ок.Click += new System.EventHandler(this.Ок_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.label8.Location = new System.Drawing.Point(22, 193);
+            this.label8.Image = ((System.Drawing.Image)(resources.GetObject("label8.Image")));
+            this.label8.Location = new System.Drawing.Point(658, 125);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(88, 18);
+            this.label8.Size = new System.Drawing.Size(20, 18);
             this.label8.TabIndex = 7;
-            this.label8.Text = "Влево вниз";
+            this.label8.Text = "   ";
+            this.label8.Visible = false;
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.label7.Location = new System.Drawing.Point(22, 164);
+            this.label7.Image = ((System.Drawing.Image)(resources.GetObject("label7.Image")));
+            this.label7.Location = new System.Drawing.Point(736, 125);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(102, 18);
+            this.label7.Size = new System.Drawing.Size(20, 18);
             this.label7.TabIndex = 6;
-            this.label7.Text = "Вверх вправо";
+            this.label7.Text = "   ";
+            this.label7.Visible = false;
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.label6.Location = new System.Drawing.Point(22, 135);
+            this.label6.Image = ((System.Drawing.Image)(resources.GetObject("label6.Image")));
+            this.label6.Location = new System.Drawing.Point(710, 125);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 18);
+            this.label6.Size = new System.Drawing.Size(20, 18);
             this.label6.TabIndex = 5;
-            this.label6.Text = "Вниз";
+            this.label6.Text = "   ";
+            this.label6.Visible = false;
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.label5.Location = new System.Drawing.Point(22, 104);
+            this.label5.Image = ((System.Drawing.Image)(resources.GetObject("label5.Image")));
+            this.label5.Location = new System.Drawing.Point(684, 125);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(95, 18);
+            this.label5.Size = new System.Drawing.Size(20, 18);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Вправо вниз";
+            this.label5.Text = "   ";
+            this.label5.Visible = false;
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.label4.Location = new System.Drawing.Point(22, 77);
+            this.label4.Image = ((System.Drawing.Image)(resources.GetObject("label4.Image")));
+            this.label4.Location = new System.Drawing.Point(632, 125);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 18);
+            this.label4.Size = new System.Drawing.Size(20, 18);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Вниз вправо";
+            this.label4.Text = "   ";
+            this.label4.Visible = false;
             this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.label3.Location = new System.Drawing.Point(22, 48);
+            this.label3.Image = ((System.Drawing.Image)(resources.GetObject("label3.Image")));
+            this.label3.Location = new System.Drawing.Point(762, 125);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 18);
+            this.label3.Size = new System.Drawing.Size(20, 18);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Вправо";
+            this.label3.Text = "   ";
+            this.label3.Visible = false;
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // dataGridView1
@@ -228,14 +245,13 @@
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersVisible = false;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dataGridView1.Location = new System.Drawing.Point(165, 33);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 36);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dataGridView1.Size = new System.Drawing.Size(601, 445);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.Visible = false;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
             // 
             // toolStrip1
             // 
@@ -649,6 +665,17 @@
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.Black;
+            this.label9.Location = new System.Drawing.Point(628, 90);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(190, 18);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Возможные направления:";
+            this.label9.Visible = false;
+            // 
             // MakeScan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -685,7 +712,6 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tapPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
@@ -734,5 +760,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button Ок;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Label label9;
     }
 }
