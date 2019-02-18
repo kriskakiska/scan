@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,15 +19,33 @@ namespace Scan
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // сохранение сканворда в файл
         {
-            if (saveFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            saveFileDialog1.DefaultExt = ".scan";
+            saveFileDialog1.InitialDirectory = @"..\..\NewScan\";
+            saveFileDialog1.AddExtension = true;
+            saveFileDialog1.FileName = "";
+            saveFileDialog1.Filter = "Файл кроссворда (*.scan)|*.scan";
+
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                System.IO.StreamReader sr = new
-                   System.IO.StreamReader(saveFileDialog1.FileName);
-                MessageBox.Show(sr.ReadToEnd());
-                sr.Close();
+                textBox1.Text = saveFileDialog1.FileName;
+                try
+                {
+                    BinaryFormatter formatter = new BinaryFormatter();
+
+                    using (FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate))
+                    {
+                        formatter.Serialize(fs, ParamScan.NewScan);
+                        MessageBox.Show("Сканворд сохранен!");
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ошибка при сохранении сканворда.");
+                }
             }
+            this.Close();
         }
     }
 }

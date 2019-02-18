@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -24,11 +25,8 @@ namespace Scan
         public static int y;
         public static int lengthAnswer;
         public static int freeCellsCount = 0;
-<<<<<<< HEAD
         public static bool selectedTaskToDelete = false;
-
-=======
->>>>>>> 17773ac769963ecb650768ba1533009eccdfa254
+        
         public MakeScan()
         {
             InitializeComponent();
@@ -91,28 +89,28 @@ namespace Scan
 
         private void toolStripButton3_Click(object sender, EventArgs e) //кнопка сохранения сканворда
         {
-            bool result = true;
-            for (int i = 0; i < dgvScan.RowCount; i++)
-            {
-                for (int j = 0; j < dgvScan.ColumnCount; j++)
-                {
-                    if (dgvScan.Rows[i].Cells[j].Value == null)
-                    {
-                        result = false;
-                    }
-                }
-            }
-            if (result == false)
-            {
-                MessageBox.Show("Поле сканворда не должно содержать пустых ячеек. Пожалуйста, внесите исправления.");
-            }
-            else
-            {
+            //bool result = true;
+            //for (int i = 0; i < dgvScan.RowCount; i++)
+            //{
+            //    for (int j = 0; j < dgvScan.ColumnCount; j++)
+            //    {
+            //        if (dgvScan.Rows[i].Cells[j].Value == null)
+            //        {
+            //            result = false;
+            //        }
+            //    }
+            //}
+            //if (result == false)
+            //{
+            //    MessageBox.Show("Поле сканворда не должно содержать пустых ячеек. Пожалуйста, внесите исправления.");
+            //}
+            //else
+            //{
                 SaveScan df = new SaveScan();
                 this.Hide();
                 df.ShowDialog();
                 this.Show();
-            }
+            //}
         }
 
         private void toolStripButton9_Click(object sender, EventArgs e) // загрузка словаря
@@ -816,13 +814,10 @@ namespace Scan
             selectedCell.Value = null;
             Ок.Enabled = false;
         }
-<<<<<<< HEAD
 
         private void toolStripButton15_Click(object sender, EventArgs e)
         {
             listView1.Visible = true;
         }
-=======
->>>>>>> 6b8cb6deb0c6f2049c3437ff118b50e95bba5405
     }
 }
