@@ -15,6 +15,8 @@ namespace Scan
         public static List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
         public static Dictionary<string, string> dictGal = new Dictionary<string, string>();
         public static List<KeyValuePair<string, string>> listGal = new List<KeyValuePair<string, string>>();
+        public static Dictionary<string, string> dictCat = new Dictionary<string, string>();
+        public static List<KeyValuePair<string, string>> listCat = new List<KeyValuePair<string, string>>();
         public static DataGridViewTextBoxCell selectedCell;
         public static DataGridView dgvScan = new DataGridView();
         public static bool clickGridCell = false;

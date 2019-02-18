@@ -49,12 +49,20 @@ namespace Scan
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (openFileDialog2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            openFileDialog1.DefaultExt = ".mus";
+            openFileDialog1.InitialDirectory = @"..\..\Catalog\";
+            openFileDialog1.AddExtension = true;
+            openFileDialog1.FileName = "";
+            openFileDialog1.Filter = "Файл каталога (*.mus)|*.mus";
+
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                System.IO.StreamReader sr = new
-                   System.IO.StreamReader(openFileDialog2.FileName);
-                MessageBox.Show(sr.ReadToEnd());
-                sr.Close();
+                MakeScan.dictCat.Clear();
+                MakeScan.listCat.Clear();
+
+                DownloadGal.parseGal(openFileDialog1.FileName);
+                MakeScan.listGal.AddRange(MakeScan.dictCat);
+                textBox1.Text = openFileDialog1.FileName;
             }
         }
 
@@ -86,6 +94,7 @@ namespace Scan
         {
             newScan = new Scan(tasks, Decimal.ToInt32(numericUpDown1.Value), Decimal.ToInt32(numericUpDown2.Value));
             wayDict = textBox3.Text;
+            wayCatalog = textBox2.Text;
             wayGallery = textBox1.Text;
             ParamScan.ActiveForm.Close();
 
