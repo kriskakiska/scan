@@ -22,11 +22,8 @@ namespace Scan
         public static int y;
         public static int lengthAnswer;
         public static int freeCellsCount = 0;
-<<<<<<< HEAD
         public static bool selectedTaskToDelete = false;
-
-=======
->>>>>>> 17773ac769963ecb650768ba1533009eccdfa254
+        
         public MakeScan()
         {
             InitializeComponent();
@@ -814,13 +811,10 @@ namespace Scan
             selectedCell.Value = null;
             Ок.Enabled = false;
         }
-<<<<<<< HEAD
 
         private void toolStripButton15_Click(object sender, EventArgs e)
         {
             listView1.Visible = true;
         }
-=======
->>>>>>> 6b8cb6deb0c6f2049c3437ff118b50e95bba5405
     }
 }
