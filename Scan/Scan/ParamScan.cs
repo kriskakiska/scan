@@ -18,6 +18,7 @@ namespace Scan
         static Scan newScan = new Scan(tasks, 0, 0);
         public static string wayDict = "";
         public static string wayGallery = "";
+        public static string wayCatalog = "";
 
         public ParamScan()
         {
