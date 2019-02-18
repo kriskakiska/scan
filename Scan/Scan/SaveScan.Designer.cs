@@ -60,7 +60,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(16, 92);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(180, 22);
             this.textBox1.TabIndex = 2;
@@ -68,7 +68,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(13, 36);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(291, 22);
             this.textBox2.TabIndex = 3;
@@ -76,7 +76,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(204, 89);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 4;
@@ -87,12 +87,13 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(133, 142);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(63, 28);
             this.button2.TabIndex = 5;
             this.button2.Text = "Ок";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // SaveScan
             // 
@@ -105,7 +106,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "SaveScan";
             this.Text = "Сохранить сканворд";
             this.ResumeLayout(false);

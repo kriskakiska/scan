@@ -13,17 +13,18 @@ namespace Scan
 {
     public partial class AddPicture : Form
     {
-        ImageList imageList = new ImageList();
-        int i = 0;
-         MakeScan msk = new MakeScan();
+        public ImageList ImageList { get; }
+     //   public ListViewItem ListViewItem { get; }
+        MakeScan msk = new MakeScan();
         public static Dictionary<string, string> dictGal2 = new Dictionary<string, string>();
         public static List<KeyValuePair<string, string>> listGal2 = new List<KeyValuePair<string, string>>();
        
         public AddPicture()
         {
             InitializeComponent();
-            dictGal2.Clear();
-            listGal2.Clear();
+            ImageList = new ImageList();
+            //dictGal2.Clear();
+            //listGal2.Clear();
         }
 
         private void button1_Click(object sender, EventArgs e)//обзор на добавление картинки
@@ -48,18 +49,17 @@ namespace Scan
             dictGal2.Clear();
             string answerPicture = textBox2.Text;
             string wayPicture = textBox1.Text;
-            imageList.ImageSize = new Size(100, 100);
+            ImageList.ImageSize = new Size(100, 100);
             dictGal2.Add(answerPicture, wayPicture);
             listGal2.AddRange(dictGal2);
             System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(wayPicture);
-            imageList.Images.Add(bitmap);
+           
+            ImageList.Images.Add(bitmap);//добавление картинки в лист
             ListViewItem listViewItem = new ListViewItem(new string[] { "", answerPicture });
-            listViewItem.ImageIndex = i;
-            //MakeScan msk = new MakeScan();
-            msk.listView1.Items.Add(listViewItem);
-            msk.listView1.SmallImageList = imageList;
-            msk.Show();
-            i++;
+            listViewItem.ImageIndex = MakeScan.indexListView;
+            listViewItem.ImageIndex = MakeScan.indexListView;
+            listView1.Items.Add(listViewItem);
+            listView1.SmallImageList = ImageList;
         }
     }
 }

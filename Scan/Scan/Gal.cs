@@ -61,8 +61,23 @@ namespace Scan
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e) // функция добавления задания в выбранную клетку
         {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                string selectedrowindex = listView1.SelectedItems.ToString();
+            
+              //  DataGridViewRow selectedRow = dgv1.Rows[selectedrowindex];
+                int idTask = ParamScan.NewScan.getTasks().Count + 1;
+                Task newTask = new Task(idTask, selectedrowindex, "Что изображено на картинке?", MakeScan.x, MakeScan.y);
+                ParamScan.NewScan.addTask(newTask);
+                MakeScan.lengthAnswer = newTask.getAnswer().Length;
+            }
+        }
+
+        private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

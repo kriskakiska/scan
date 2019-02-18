@@ -23,13 +23,15 @@ namespace Scan
         public static int lengthAnswer;
         public static int freeCellsCount = 0;
         public static bool selectedTaskToDelete = false;
-        
+        public static int indexListView = 0;
+        ImageList il = new ImageList();
         public MakeScan()
         {
             InitializeComponent();
             //MakeScan msk = new MakeScan();
             initDataGrid();
             dataGridView1.CellClick += new DataGridViewCellEventHandler(dataGridView1_CellClick);
+            
             dgvScan = dataGridView1;
         }
         
@@ -171,6 +173,8 @@ namespace Scan
             }
             catch (Exception) { MessageBox.Show("Выйдите из режима редактирования"); }
         }
+
+        
 
         public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e) // обратчик нажатия ячейки поля
         { 
@@ -323,9 +327,20 @@ namespace Scan
         private void toolStripButton18_Click(object sender, EventArgs e)
         {
             AddPicture df = new AddPicture();
-            this.Hide();
+            //this.Hide();
             df.ShowDialog();
-            this.Show();
+            string answerPicture = df.textBox2.Text;
+            ListViewItem listViewItem = new ListViewItem(new string[] { "", answerPicture });
+           // ImageList il = new ImageList();
+            //ListViewItem lvi = new ListViewItem();
+            //lvi = df.ListViewItem;
+            il=df.ImageList;
+           // listViewItem.ImageIndex = indexListView;
+           // listView1.SmallImageList = il;
+           // listView1.Items.Add(listViewItem);
+           // indexListView++;
+           // this.Show();
+
         }
 
         private void toolStripButton4_Click(object sender, EventArgs e)
