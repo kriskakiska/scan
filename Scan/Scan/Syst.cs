@@ -19,7 +19,7 @@ namespace Scan
             getSystemInfo(fileSystemInfo);
         }
 
-        public static string fileSystemInfo = @"C:\Kristina\SSAU\7\ТП\ScanLastVersion\Scan\Src\SystemInfo.txt";
+        public static string fileSystemInfo = @"C:\Kristina\lab\Scan\Src\SystemInfo.txt";
 
         public void getSystemInfo(string fileName)
         {

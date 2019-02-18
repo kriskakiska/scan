@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -14,6 +15,8 @@ namespace Scan
         public static List<KeyValuePair<string, string>> list = new List<KeyValuePair<string, string>>();
         public static Dictionary<string, string> dictGal = new Dictionary<string, string>();
         public static List<KeyValuePair<string, string>> listGal = new List<KeyValuePair<string, string>>();
+        public static Dictionary<string, string> dictCat = new Dictionary<string, string>();
+        public static List<KeyValuePair<string, string>> listCat = new List<KeyValuePair<string, string>>();
         public static DataGridViewTextBoxCell selectedCell;
         public static DataGridView dgvScan = new DataGridView();
         public static bool clickGridCell = false;
@@ -88,28 +91,28 @@ namespace Scan
 
         private void toolStripButton3_Click(object sender, EventArgs e) //кнопка сохранения сканворда
         {
-            bool result = true;
-            for (int i = 0; i < dgvScan.RowCount; i++)
-            {
-                for (int j = 0; j < dgvScan.ColumnCount; j++)
-                {
-                    if (dgvScan.Rows[i].Cells[j].Value == null)
-                    {
-                        result = false;
-                    }
-                }
-            }
-            if (result == false)
-            {
-                MessageBox.Show("Поле сканворда не должно содержать пустых ячеек. Пожалуйста, внесите исправления.");
-            }
-            else
-            {
+            //bool result = true;
+            //for (int i = 0; i < dgvScan.RowCount; i++)
+            //{
+            //    for (int j = 0; j < dgvScan.ColumnCount; j++)
+            //    {
+            //        if (dgvScan.Rows[i].Cells[j].Value == null)
+            //        {
+            //            result = false;
+            //        }
+            //    }
+            //}
+            //if (result == false)
+            //{
+            //    MessageBox.Show("Поле сканворда не должно содержать пустых ячеек. Пожалуйста, внесите исправления.");
+            //}
+            //else
+            //{
                 SaveScan df = new SaveScan();
                 this.Hide();
                 df.ShowDialog();
                 this.Show();
-            }
+            //}
         }
 
         private void toolStripButton9_Click(object sender, EventArgs e) // загрузка словаря
@@ -343,9 +346,36 @@ namespace Scan
 
         }
 
-        private void toolStripButton4_Click(object sender, EventArgs e)
+        private void toolStripButton4_Click(object sender, EventArgs e) // значок изменения параметров сканворда
         {
-
+            int result = 0;
+            for (int i = 0; i < dgvScan.RowCount; i++)
+            {
+                for (int j = 0; j < dgvScan.ColumnCount; j++)
+                {
+                    if (dgvScan.Rows[i].Cells[j].Value == null)
+                    {
+                        result++;
+                    }
+                }
+            }
+            if (result == dgvScan.RowCount * dgvScan.ColumnCount)
+            {
+                if (result == 0 && dgvScan.RowCount * dgvScan.ColumnCount == 0)
+                {
+                    MessageBox.Show("Чтобы изменить параметры сканворда, необходимо создать сканворд.");
+                }
+                else
+                {
+                    ParamScan ps = new ParamScan();
+                    ps.ShowDialog();
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Чтобы изменить параметры сканворда, необходимо очистить поле.");
+            }
         }
 
         private void toolStripButton5_Click(object sender, EventArgs e) // значок добавления задания на поле
@@ -385,16 +415,6 @@ namespace Scan
                 selectedTaskToDelete = true;
                 MessageBox.Show("Нажмите на ячейку с номером задания, которое вы хотели бы удалить.");
             }
-
-            //if (clickGridCell)
-            //{
-            //    ParamScan.NewScan.deleteTask(Convert.ToInt32(selectedCell.Value));
-            //    selectedCell.Value = null;
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Нажмите на ячейку с номером задания, которое вы хотели бы удалить");
-            //}
         }
 
         private void toolStripButton21_Click(object sender, EventArgs e)
@@ -424,7 +444,6 @@ namespace Scan
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
             Syst df = new Syst();
-            this.Hide();
             df.ShowDialog();
             this.Show();
         }
@@ -830,6 +849,11 @@ namespace Scan
         private void toolStripButton15_Click(object sender, EventArgs e)
         {
             listView1.Visible = true;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
+using System.Media;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +14,62 @@ namespace Scan
 {
     public partial class Catalog : Form
     {
+        public SoundPlayer player;
+        private void InitializeSound()
+        {
+            player = new SoundPlayer();
+           /* player.SoundLocation = Text;
+            player.Load();*/
+
+        }
+        public static Dictionary<string, string> dictCat1 = new Dictionary<string, string>();
+        public static List<KeyValuePair<string, string>> listCat1 = new List<KeyValuePair<string, string>>();
+        public Catalog()
+        {
+            InitializeComponent();
+        }
+
+        private void downloadCatalog()//загрузка каталога
+        {
+            string wayCatalog = ParamScan.wayCatalog;
+            //List musicList = new List();
+            //imageList.ImageSize = new Size(100, 100);
+            listCat.Items.Clear();
+            parseCat(wayCatalog);
+            listCat1.AddRange(dictCat1);
+            int i = 0;
+            foreach (var item in listCat1)
+            {
+                string wayAudio = item.Value;
+                string answerAudio = item.Key;
+                //System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(wayPicture);
+                //imageList.Images.Add(bitmap);
+                ListViewItem listViewItem = new ListViewItem(new string[] { "", answerAudio });
+                listViewItem.ImageIndex = i;
+                listCat.Items.Add(listViewItem);
+                //listCat.SmallImageList = imageList;
+                i++;
+            }
+        }
+
+        public static void parseCat(string filename)// парс для галереи
+        {
+            string[] words = File.ReadAllLines(filename, Encoding.GetEncoding("windows-1251")).Take(500).ToArray();
+            for (int i = 0; i <= words.Length - 2; i++)
+            {
+                string id = words[i].Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                string wayForMusic = words[i].Substring(words[i].IndexOf(' ') + 1); //TODO убрать костыль
+                try
+                {
+                    dictCat1.Add(id, wayForMusic);
+                }
+                catch (ArgumentException)
+                {
+                    MessageBox.Show("В галереи имеются одинаковые изображения");
+                    return;
+                }
+            }
+        }
         /*OpenFileDialog ofd = new OpenFileDialog();
         StringBuilder buffer = new StringBuilder(128);
         int second;
@@ -80,9 +138,6 @@ namespace Scan
             second = second % 60;
             lbltime.Text = minutes.ToString("00") + ":" + second.ToString("00");
         }*/
-        public Catalog()
-        {
-            InitializeComponent();
-        }
+
     }
 }

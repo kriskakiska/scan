@@ -129,7 +129,7 @@
             this.tabPage1.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(851, 481);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Сканворд";
@@ -265,10 +265,11 @@
             this.dataGridView1.Location = new System.Drawing.Point(4, 29);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridView1.Size = new System.Drawing.Size(601, 445);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.Visible = false;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // toolStrip1
             // 
@@ -370,7 +371,7 @@
             this.tapPage2.Controls.Add(this.toolStrip2);
             this.tapPage2.Location = new System.Drawing.Point(4, 22);
             this.tapPage2.Name = "tapPage2";
-            this.tapPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tapPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tapPage2.Size = new System.Drawing.Size(851, 481);
             this.tapPage2.TabIndex = 1;
             this.tapPage2.Text = "Словарь";
@@ -388,7 +389,7 @@
             this.dataGridView2.ColumnHeadersVisible = false;
             this.dataGridView2.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView2.Location = new System.Drawing.Point(381, 43);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.RowTemplate.Height = 24;
@@ -523,7 +524,7 @@
             this.tabPage3.Controls.Add(this.toolStrip3);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(851, 481);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Галерея";
@@ -536,7 +537,7 @@
             this.columnHeader1,
             this.columnHeader2});
             this.listView1.Location = new System.Drawing.Point(0, 28);
-            this.listView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listView1.Margin = new System.Windows.Forms.Padding(2);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(505, 460);
             this.listView1.TabIndex = 1;
@@ -622,7 +623,7 @@
             this.tabPage4.Controls.Add(this.toolStrip4);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(851, 481);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Каталог";
@@ -713,6 +714,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(895, 554);
             this.Controls.Add(this.tabControl1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "MakeScan";
             this.Text = "Создание сканворда";
             this.Load += new System.EventHandler(this.MakeScan_Load);

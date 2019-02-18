@@ -28,7 +28,7 @@ namespace Scan
                     return;
                 }
             }
-               if (textBox2.Text == textBox3.Text)
+            if (textBox2.Text == textBox3.Text)
             {         
                 Form1.passDict.Add(textBox1.Text.ToString(), textBox2.Text.ToString());
                 Form1.list.Clear();
@@ -45,6 +45,7 @@ namespace Scan
                     sw.WriteLine(s);
                 }
 
+                MessageBox.Show("Регистрация прошла успешно!");
                 Form1 form = new Form1();
                 this.Hide();
                 form.ShowDialog();
@@ -54,6 +55,8 @@ namespace Scan
             else
             {
                 MessageBox.Show("Пароли не совпадают!");
+                textBox2.Text = "";
+                textBox3.Text = "";
             }
         }
 

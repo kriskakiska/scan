@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Scan
 {
+    [Serializable]
     class Task
     {
         private string answer;
@@ -14,8 +15,9 @@ namespace Scan
         private int direction;
         private int x;
         private int y;
+        private string answerUser;
 
-        public Task(int ident, string selectAnswer, string selectQuestion, int i, int j) //, int selectDirection)
+        public Task(int ident, string selectAnswer, string selectQuestion, int i, int j)
         {
             id = ident;
             answer = selectAnswer;
@@ -23,6 +25,16 @@ namespace Scan
             direction = 0;
             x = i;
             y = j;
+        }
+
+        public void setTaskAnswer(string newAnswerUser)
+        {
+            answerUser = newAnswerUser;
+        }
+
+        public string getTaskAnswer()
+        {
+            return answerUser;
         }
 
         public string getAnswer()

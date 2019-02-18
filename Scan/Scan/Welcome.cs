@@ -20,7 +20,6 @@ namespace Scan
         private void button1_Click(object sender, EventArgs e) // кнопка "о системе"
         {
             Syst df = new Syst();
-            this.Hide();
             df.ShowDialog();
             this.Show();
         }
