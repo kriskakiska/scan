@@ -14,6 +14,7 @@ namespace Scan
 {
     public partial class SaveScan : Form
     {
+        public static bool userScan = false;
         public SaveScan()
         {
             InitializeComponent();
@@ -36,8 +37,16 @@ namespace Scan
 
                     using (FileStream fs = new FileStream(saveFileDialog1.FileName, FileMode.OpenOrCreate))
                     {
-                        formatter.Serialize(fs, ParamScan.NewScan);
-                        MessageBox.Show("Сканворд сохранен!");
+                        if (userScan)
+                        {
+                            formatter.Serialize(fs, DownloadScan.ScanUser);
+                            MessageBox.Show("Сканворд сохранен!");
+                            userScan = false;
+                        } else
+                        {
+                            formatter.Serialize(fs, ParamScan.NewScan);
+                            MessageBox.Show("Сканворд сохранен!");
+                        }
                     }
                 }
                 catch (Exception)
