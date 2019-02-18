@@ -16,7 +16,7 @@ namespace Scan
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MakeScan());
+            Application.Run(new Form1());
         }
     }
 }

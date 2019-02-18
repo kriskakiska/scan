@@ -51,24 +51,58 @@ namespace Scan
                 this.Show();
                 Form1.ActiveForm.Close();
             }
+            else if (inputLogin == "Admin" && inputPassword != "1234")
+            {
+                MessageBox.Show("Неверный пароль!");
+                textBox2.Text = "";
+            }
             else
             {
                 parseDict(passDictFile);
                 list.AddRange(passDict);
-                foreach (var item in list) {
+                bool exist = false;
+                bool correct = false;
+
+                foreach (var item in list)
+                {
                     if (textBox1.Text == item.Key)
                     {
-                        if (textBox2.Text == item.Value)
-                        {
-                            Welcome w = new Welcome();
-                            this.Hide();
-                            w.ShowDialog();
-                            this.Show();
-                            Form1.ActiveForm.Close();
-                        }
+                        exist = true;
                     }
                 }
 
+                if (exist == true)
+                {
+                    foreach (var item in list)
+                    {
+                        if (textBox1.Text == item.Key)
+                        {
+                            if (textBox2.Text == item.Value)
+                            {
+                                correct = true;
+                            }
+                        }
+                    }
+                    if (correct == true)
+                    {
+                        Welcome w = new Welcome();
+                        this.Hide();
+                        w.ShowDialog();
+                        this.Show();
+                        Form1.ActiveForm.Close();
+                        correct = false;
+                    }
+                    else
+                    {
+                        textBox2.Text = "";
+                        MessageBox.Show("Неверный пароль!");
+                    }
+                    exist = false;
+                }
+                else
+                {
+                    MessageBox.Show("Данного логина не существует.");
+                }
             }
         }
 

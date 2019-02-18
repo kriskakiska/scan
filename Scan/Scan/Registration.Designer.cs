@@ -49,6 +49,7 @@
             // 
             this.textBox2.Location = new System.Drawing.Point(35, 129);
             this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(137, 20);
             this.textBox2.TabIndex = 1;
             // 
@@ -56,6 +57,7 @@
             // 
             this.textBox3.Location = new System.Drawing.Point(35, 86);
             this.textBox3.Name = "textBox3";
+            this.textBox3.PasswordChar = '*';
             this.textBox3.Size = new System.Drawing.Size(137, 20);
             this.textBox3.TabIndex = 2;
             // 
@@ -104,7 +106,6 @@
             this.button2.TabIndex = 7;
             this.button2.Text = "Отмена";
             this.button2.UseVisualStyleBackColor = true;
-           // this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // Registration
             // 
@@ -119,6 +120,9 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Registration";
             this.Text = "Регистрация";
             this.ResumeLayout(false);

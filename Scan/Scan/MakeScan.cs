@@ -329,9 +329,36 @@ namespace Scan
             this.Show();
         }
 
-        private void toolStripButton4_Click(object sender, EventArgs e)
+        private void toolStripButton4_Click(object sender, EventArgs e) // значок изменения параметров сканворда
         {
-
+            int result = 0;
+            for (int i = 0; i < dgvScan.RowCount; i++)
+            {
+                for (int j = 0; j < dgvScan.ColumnCount; j++)
+                {
+                    if (dgvScan.Rows[i].Cells[j].Value == null)
+                    {
+                        result++;
+                    }
+                }
+            }
+            if (result == dgvScan.RowCount * dgvScan.ColumnCount)
+            {
+                if (result == 0 && dgvScan.RowCount * dgvScan.ColumnCount == 0)
+                {
+                    MessageBox.Show("Чтобы изменить параметры сканворда, необходимо создать сканворд.");
+                }
+                else
+                {
+                    ParamScan ps = new ParamScan();
+                    ps.ShowDialog();
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Чтобы изменить параметры сканворда, необходимо очистить поле.");
+            }
         }
 
         private void toolStripButton5_Click(object sender, EventArgs e) // значок добавления задания на поле
@@ -371,16 +398,6 @@ namespace Scan
                 selectedTaskToDelete = true;
                 MessageBox.Show("Нажмите на ячейку с номером задания, которое вы хотели бы удалить.");
             }
-
-            //if (clickGridCell)
-            //{
-            //    ParamScan.NewScan.deleteTask(Convert.ToInt32(selectedCell.Value));
-            //    selectedCell.Value = null;
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Нажмите на ячейку с номером задания, которое вы хотели бы удалить");
-            //}
         }
 
         private void toolStripButton21_Click(object sender, EventArgs e)
@@ -410,7 +427,6 @@ namespace Scan
         private void toolStripButton7_Click(object sender, EventArgs e)
         {
             Syst df = new Syst();
-            this.Hide();
             df.ShowDialog();
             this.Show();
         }
