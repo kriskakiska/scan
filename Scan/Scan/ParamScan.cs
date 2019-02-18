@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace Scan
 {
-    
+    [Serializable]
     public partial class ParamScan : Form
     {
         static List<Task> tasks = new List<Task>();

@@ -12,14 +12,12 @@ namespace Scan
         private List<Task> tasks;
         private int height;
         private int width;
-        private Dict currentDict;
 
-        public Scan(List<Task> currentTasks, int h, int w) // , Dict dictionary)
+        public Scan(List<Task> currentTasks, int h, int w)
         {
             tasks = currentTasks;
             height = h;
             width = w;
-            //currentDict = dictionary;
         }
 
         public List<Task> getTasks()
@@ -64,11 +62,6 @@ namespace Scan
         public int getWidth()
         {
             return width;
-        }
-
-        public Dict getDict()
-        {
-            return currentDict;
         }
     }
 }

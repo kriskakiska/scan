@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Windows.Media;
 
@@ -86,28 +87,28 @@ namespace Scan
 
         private void toolStripButton3_Click(object sender, EventArgs e) //кнопка сохранения сканворда
         {
-            bool result = true;
-            for (int i = 0; i < dgvScan.RowCount; i++)
-            {
-                for (int j = 0; j < dgvScan.ColumnCount; j++)
-                {
-                    if (dgvScan.Rows[i].Cells[j].Value == null)
-                    {
-                        result = false;
-                    }
-                }
-            }
-            if (result == false)
-            {
-                MessageBox.Show("Поле сканворда не должно содержать пустых ячеек. Пожалуйста, внесите исправления.");
-            }
-            else
-            {
+            //bool result = true;
+            //for (int i = 0; i < dgvScan.RowCount; i++)
+            //{
+            //    for (int j = 0; j < dgvScan.ColumnCount; j++)
+            //    {
+            //        if (dgvScan.Rows[i].Cells[j].Value == null)
+            //        {
+            //            result = false;
+            //        }
+            //    }
+            //}
+            //if (result == false)
+            //{
+            //    MessageBox.Show("Поле сканворда не должно содержать пустых ячеек. Пожалуйста, внесите исправления.");
+            //}
+            //else
+            //{
                 SaveScan df = new SaveScan();
                 this.Hide();
                 df.ShowDialog();
                 this.Show();
-            }
+            //}
         }
 
         private void toolStripButton9_Click(object sender, EventArgs e) // загрузка словаря
